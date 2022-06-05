@@ -1,11 +1,16 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
-require('dotenv').config();
+const cors = require('cors');
 
+
+require('dotenv').config();
+app.use(cors());
+app.use(express.json());
 
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const { json } = require('express/lib/response');
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.moy4n.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
@@ -19,6 +24,14 @@ async function run(){
     // load all destinations 
     app.get('/destinations', async(req, res) => {
       const result = await destinationCollection.find({}).toArray();
+      res.send(result)
+    })
+
+    // load single destination 
+    app.get('/destination', async(req, res) => {
+      const destinationInfo = JSON.parse(req.headers?.destinationinfo)
+      const query = { from: destinationInfo?.from, to: destinationInfo?.to }
+      const result = await destinationCollection.findOne(query);
       res.send(result)
     })
 
