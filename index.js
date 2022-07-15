@@ -3,6 +3,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 const cors = require("cors");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+const { query } = require("express");
 
 require("dotenv").config();
 app.use(cors());
@@ -24,7 +25,7 @@ async function run() {
       .db("Padma_Exclusive")
       .collection("destinations");
     const ticketCollection = client.db("Padma_Exclusive").collection("tickets");
-    const bookTickets = client.db('Padma_Exclusive').collection('booking')
+    const bookTickets = client.db("Padma_Exclusive").collection("booking");
 
     // load all destinations
     app.get("/destinations", async (req, res) => {
@@ -54,16 +55,52 @@ async function run() {
     // load all tickets
     app.get("/tickets", async (req, res) => {
       const date = req.query.date;
-      console.log(date)
       const result = await ticketCollection.find({}).toArray();
-      res.send(result);
+      const loadAllBookings = await bookTickets
+        .find({ departDate: date })
+        .toArray();
+      const allScehdule = [];
+
+      result.map((elResult) => {
+        loadAllBookings.map((booking) => {
+          if (elResult.busId === booking.busId) {
+            elResult.availableSeats.splice(0, booking.selectPassengers.length);
+            const findSchedule = allScehdule.find(
+              (elFind) => elFind.busId === elResult.busId
+            );
+            if (!findSchedule) {
+              allScehdule.push(elResult);
+            }
+          } else {
+            const findSchedule = allScehdule.find(
+              (elFind) => elFind.busId === elResult.busId
+            );
+            if (!findSchedule) {
+              allScehdule.push(elResult);
+            }
+          }
+        });
+      });
+      if(loadAllBookings.length){
+        res.send(allScehdule);
+      }
+      else{
+        res.send(result)
+      }
     });
 
+    // load single ticket 
+    app.get('/ticket', async(req, res) => {
+      const userEmail = req.query.user;
+      const result = await bookTickets.findOne({user: userEmail});
+      res.send(result);
+    })
+
     // booking ticket
-    app.post('/bookTicket', async(req, res) => {
+    app.post("/bookTicket", async (req, res) => {
       const ticket = req.body;
       const result = await bookTickets.insertOne(ticket);
-    })
+    });
 
     // payment api
     app.post("/paymentIntent", async (req, res) => {
@@ -90,3 +127,6 @@ app.get("/", async (req, res) => {
 app.listen(port, () => {
   console.log("server is running on", port);
 });
+
+// padma-exclusive
+// CwDm4pKrK42pZFuF
