@@ -92,8 +92,10 @@ async function run() {
     // load single ticket 
     app.get('/ticket', async(req, res) => {
       const userEmail = req.query.user;
-      const result = await bookTickets.findOne({user: userEmail});
-      res.send(result);
+      const result = await bookTickets.find({user: userEmail}).toArray();
+      const lastBook = result[result.length - 1];
+      res.send(result[result.length - 1]);
+      console.log(userEmail)
     })
 
     // booking ticket
