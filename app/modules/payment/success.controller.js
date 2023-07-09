@@ -6,7 +6,6 @@ const successControler = async (req, res) => {
     { transactionId },
     { paymentStatus: true }
   );
-  console.log(result);
   res.redirect(`http://localhost:3000/success/${transactionId}`);
 };
 

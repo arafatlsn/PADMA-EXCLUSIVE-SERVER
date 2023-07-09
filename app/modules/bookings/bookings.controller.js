@@ -7,7 +7,6 @@ const getBookingsController = async (req, res) => {
     date: `${selectedDate}`,
     busId: `${busId}`,
   });
-  console.log(result);
   res.status(200).json(result);
 };
 

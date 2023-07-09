@@ -5,7 +5,6 @@ const getSingleTicket = async (req, res) => {
   const result = await bookingsModel.findOne({
     transactionId: `${transactionId}`,
   });
-  console.log("hello ticket", result);
   res.status(200).json(result);
 };
 

@@ -51,7 +51,6 @@ const paymentController = async (req, res) => {
   orderData["paymentStatus"] = false;
   const booking = new bookingsModel(orderData);
   const result = await booking.save();
-  console.log(result);
 };
 
 module.exports = paymentController;
