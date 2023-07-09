@@ -31,3 +31,5 @@ async function dbConnect() {
     console.log(err?.message);
   }
 }
+
+module.exports = app;
