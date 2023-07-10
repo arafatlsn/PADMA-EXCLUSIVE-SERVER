@@ -23,12 +23,12 @@ dbConnect().catch((err) => console.log(err));
 
 async function dbConnect() {
   try {
-    await mongoose.connect("mongodb://127.0.0.1:27017/padma-exclusive");
+    await mongoose.connect(process.env.DB_URI);
     app.listen(port, () => {
       console.log("Server is running!");
     });
   } catch (err) {
-    console.log(err?.message);
+    console.log("this message", err?.message);
   }
 }
 
