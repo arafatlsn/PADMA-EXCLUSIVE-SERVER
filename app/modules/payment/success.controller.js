@@ -6,7 +6,7 @@ const successControler = async (req, res) => {
     { transactionId },
     { paymentStatus: true }
   );
-  res.redirect(`http://localhost:3000/success/${transactionId}`);
+  res.redirect(`https://padma-exclusive.netlify.app/success/${transactionId}`);
 };
 
 module.exports = successControler;

@@ -1,5 +1,5 @@
 const canceledController = async (req, res) => {
-  res.redirect("http://localhost:3000/canceled");
+  res.redirect("https://padma-exclusive.netlify.app/canceled");
 };
 
 module.exports = canceledController;
