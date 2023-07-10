@@ -1,7 +1,7 @@
 const crypto = require("crypto");
 const SSLCommerzPayment = require("sslcommerz-lts");
 const bookingsModel = require("../bookings/bookings.model");
-require('dotenv').config()
+require("dotenv").config();
 const store_id = process.env.STORE_ID;
 const store_passwd = process.env.STORE_PASSWORD;
 const is_live = false; //true for live, false for sandbox
@@ -13,10 +13,10 @@ const paymentController = async (req, res) => {
     total_amount: dataFromClient?.cost,
     currency: "BDT",
     tran_id: trxId, // use unique tran_id for each api call
-    success_url: `https://padma-exclusive.onrender.com/api/v1/payment/success/${trxId}`,
-    fail_url: "https://padma-exclusive.onrender.com/api/v1/payment/failed",
-    cancel_url: "https://padma-exclusive.onrender.com/api/v1/payment/canceled",
-    ipn_url: "https://padma-exclusive.onrender.com/ipn",
+    success_url: `${process.env.BACKEND_URL}/api/v1/payment/success/${trxId}`,
+    fail_url: `${process.env.BACKEND_URL}/api/v1/payment/failed`,
+    cancel_url: `${process.env.BACKEND_URL}/api/v1/payment/canceled`,
+    ipn_url: `${process.env.BACKEND_URL}/ipn`,
     shipping_method: "Online",
     product_name: "Bus Ticket",
     product_category: "Service",

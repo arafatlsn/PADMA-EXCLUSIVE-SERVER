@@ -1,5 +1,5 @@
 const failController = async (req, res) => {
-  res.redirect("https://padma-exclusive.netlify.app/failed")
+  res.redirect(`${process.env.FRONTEND_URL}/failed`)
 };
 
 module.exports = failController;
