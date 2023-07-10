@@ -14,8 +14,8 @@ const paymentController = async (req, res) => {
     currency: "BDT",
     tran_id: trxId, // use unique tran_id for each api call
     success_url: `${process.env.BACKEND_URL}/api/v1/payment/success/${trxId}`,
-    fail_url: `${process.env.BACKEND_URL}/api/v1/payment/failed`,
-    cancel_url: `${process.env.BACKEND_URL}/api/v1/payment/canceled`,
+    fail_url: `${process.env.BACKEND_URL}/api/v1/payment/failed/${trxId}`,
+    cancel_url: `${process.env.BACKEND_URL}/api/v1/payment/canceled/${trxId}`,
     ipn_url: `${process.env.BACKEND_URL}/ipn`,
     shipping_method: "Online",
     product_name: "Bus Ticket",

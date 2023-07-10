@@ -7,7 +7,7 @@ const canceledController = require("./canceled.controller");
 
 paymentRouter.post("/booking", paymentController);
 paymentRouter.post("/success/:tId", successControler);
-paymentRouter.post("/failed", failController);
-paymentRouter.post("/canceled", canceledController);
+paymentRouter.post("/failed/:tId", failController);
+paymentRouter.post("/canceled/:tId", canceledController);
 
 module.exports = paymentRouter;
