@@ -16,7 +16,7 @@ const paymentController = async (req, res) => {
     success_url: `https://padma-exclusive.onrender.com/api/v1/payment/success/${trxId}`,
     fail_url: "https://padma-exclusive.onrender.com/api/v1/payment/failed",
     cancel_url: "https://padma-exclusive.onrender.com/api/v1/payment/canceled",
-    ipn_url: "http://localhost:3000/ipn",
+    ipn_url: "https://padma-exclusive.onrender.com/ipn",
     shipping_method: "Online",
     product_name: "Bus Ticket",
     product_category: "Service",
