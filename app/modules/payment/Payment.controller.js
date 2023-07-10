@@ -13,9 +13,9 @@ const paymentController = async (req, res) => {
     total_amount: dataFromClient?.cost,
     currency: "BDT",
     tran_id: trxId, // use unique tran_id for each api call
-    success_url: `http://localhost:5000/api/v1/payment/success/${trxId}`,
-    fail_url: "http://localhost:5000/api/v1/payment/failed",
-    cancel_url: "http://localhost:5000/api/v1/payment/canceled",
+    success_url: `https://padma-exclusive.onrender.com/api/v1/payment/success/${trxId}`,
+    fail_url: "https://padma-exclusive.onrender.com/api/v1/payment/failed",
+    cancel_url: "https://padma-exclusive.onrender.com/api/v1/payment/canceled",
     ipn_url: "http://localhost:3000/ipn",
     shipping_method: "Online",
     product_name: "Bus Ticket",
